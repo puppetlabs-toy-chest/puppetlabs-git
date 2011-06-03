@@ -5,7 +5,6 @@
 # Requires:
 #  - Class[git]
 #
-#
 class git::gitosis {
   include ::git
   package {'gitosis':

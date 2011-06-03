@@ -1,1 +1,1 @@
-include git::gitosis
+class { 'git::gitosis': }

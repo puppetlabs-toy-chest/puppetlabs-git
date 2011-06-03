@@ -1,1 +1,1 @@
-include git
+class { 'git': }
