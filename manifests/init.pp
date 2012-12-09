@@ -8,8 +8,14 @@
 # Sample Usage:
 #  class { 'git': }
 #
+
+$package_name = $operatingsystem ? {
+  debian  => 'git',
+  default => 'git-core',
+}
+
 class git {
-  package { 'git-core':
+  package { $package_name:
     ensure => installed,
   }
 }
