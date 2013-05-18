@@ -9,7 +9,15 @@
 #  class { 'git': }
 #
 class git {
-  package { 'git-core':
+
+  $gitpkg = $::osfamily ? {
+    'RedHat' => 'git',
+    'Debian' => 'git-core',
+  }
+
+  package { $gitpkg:
     ensure => installed,
   }
 }
+
+# vim: set ts=2 sw=2 et ft=puppet:
