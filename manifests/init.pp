@@ -9,7 +9,7 @@
 #  class { 'git': }
 #
 class git {
-  package { 'git-core':
+  package { 'git':
     ensure => installed,
   }
 }
