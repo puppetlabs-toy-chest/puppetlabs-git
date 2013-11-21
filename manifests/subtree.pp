@@ -4,13 +4,15 @@
 #
 class git::subtree {
 
+  include ::git
+
   Package['git'] -> Class['git::subtree']
 
-  if (versioncmp('1.7.0', $::git_version) >= 0) {
+  if (versioncmp('1.7.0', $::git_version) > 0) {
     fail 'git-subtree requires git 1.7 or later!'
   }
 
-  if (versioncmp('1.7.11', $::git_version) >= 0) {
+  if (versioncmp('1.7.11', $::git_version) > 0) {
     $source_dir = '/usr/src/git-subtree'
     vcsrepo { $source_dir:
       ensure   => present,
