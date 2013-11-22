@@ -28,9 +28,31 @@ The specifics managed by the module may vary depending on the platform.
 
 ##Usage
 
+###I just want `git` installed
 Simply include the `git` class.
 
-    include git
+```puppet
+include git
+```
+
+###I want to use `git subtree` with bash completion
+
+```puppet
+include git::subtree
+```
+
+##Reference
+
+###Classes
+
+* `git`: Installs the git client package.
+* `gitosis`: Installs the gitosis package. No configuration
+* `subtree`: Installs and configures git-subtree for git 1.7 and up.
+
+###Facts
+
+* `git_exec_path`: Path to the directory containing all `git-*` commands.
+* `git_version`: Version of git that is installed. Undefined if not installed.
 
 ##Limitations
 
