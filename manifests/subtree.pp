@@ -21,7 +21,7 @@ class git::subtree {
       revision => '2793ee6ba',
     }
   } else {
-    $source_dir = '/usr/share/doc/git-core/contrib/subtree'
+    $source_dir = '/usr/share/doc/git/contrib/subtree'
   }
 
   exec { "/usr/bin/make prefix=/usr libexecdir=${::git_exec_path}":

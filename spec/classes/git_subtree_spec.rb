@@ -51,13 +51,13 @@ describe 'git::subtree' do
     it { should create_class('git') }
 
     it { should create_exec('/usr/bin/make prefix=/usr libexecdir=/usr/lib/git-core').with({
-      :creates => '/usr/share/doc/git-core/contrib/subtree/git-subtree',
-      :cwd     => '/usr/share/doc/git-core/contrib/subtree',
+      :creates => '/usr/share/doc/git/contrib/subtree/git-subtree',
+      :cwd     => '/usr/share/doc/git/contrib/subtree',
     })}
 
     it { should create_exec('/usr/bin/make prefix=/usr libexecdir=/usr/lib/git-core install').with({
       :creates => '/usr/lib/git-core/git-subtree',
-      :cwd     => '/usr/share/doc/git-core/contrib/subtree',
+      :cwd     => '/usr/share/doc/git/contrib/subtree',
     })}
 
     it { should create_file('/etc/bash_completion.d/git-subtree').with({
