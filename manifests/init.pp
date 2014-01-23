@@ -9,5 +9,7 @@
 #  class { 'git': }
 #
 class git {
-  ensure_packages(['git'])
+  if defined(Package(['git']) == false {
+    ensure_packages(['git'])
+  }
 }
