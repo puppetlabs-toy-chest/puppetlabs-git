@@ -5,9 +5,7 @@
 # Requires:
 #  - Class[git]
 #
-class git::gitosis {
+class git::gitosis inherits gitosis::params {
   include ::git
-  package {'gitosis':
-    ensure => present
-  }
+  package { $package: ensure => present }
 }

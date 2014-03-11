@@ -8,8 +8,6 @@
 # Sample Usage:
 #  class { 'git': }
 #
-class git {
-  package { 'git':
-    ensure => installed,
-  }
+class git inherits git::params {
+  package { $package: ensure => installed, }
 }
