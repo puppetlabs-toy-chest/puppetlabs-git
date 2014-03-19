@@ -9,7 +9,15 @@
 #  class { 'git': }
 #
 class git {
-  package { 'git':
-    ensure => installed,
+
+  case $::operatingsystem {
+    /(?ix:sles)/: {
+      include git::sles-git-from-source
+    }
+    default : {
+      package { 'git':
+        ensure => installed,
+      }
+    }
   }
 }
