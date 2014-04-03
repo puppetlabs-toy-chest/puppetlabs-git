@@ -6,5 +6,5 @@ license 'Apache 2.0'
 summary 'module for installing git'
 description 'module for installing git'
 project_page 'https://github.com/puppetlabs/puppetlabs-git/'
-dependency 'puppetlabs/vcsrepo'
+dependency 'puppetlabs/vcsrepo', '>=0.1.0'
 
