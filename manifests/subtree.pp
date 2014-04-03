@@ -16,15 +16,17 @@ class git::subtree {
     $source_dir = '/usr/src/git-subtree'
     vcsrepo { $source_dir:
       ensure   => present,
-      source   => 'http://github.com/apenwarr/git-subtree.git',
+      source   => 'https://github.com/apenwarr/git-subtree.git',
       provider => 'git',
       revision => '2793ee6ba',
+      before   => Exec['Build git-subtree'],
     }
   } else {
     $source_dir = '/usr/share/doc/git/contrib/subtree'
   }
 
-  exec { "/usr/bin/make prefix=/usr libexecdir=${::git_exec_path}":
+  exec { 'Build git-subtree':
+    command => "/usr/bin/make prefix=/usr libexecdir=${::git_exec_path}",
     creates => "${source_dir}/git-subtree",
     cwd     => $source_dir,
   }

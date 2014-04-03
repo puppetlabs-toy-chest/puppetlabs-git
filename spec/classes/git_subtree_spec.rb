@@ -20,7 +20,7 @@ describe 'git::subtree' do
 
     it { should create_vcsrepo('/usr/src/git-subtree').with({
       :ensure   => 'present',
-      :source   => 'http://github.com/apenwarr/git-subtree.git',
+      :source   => 'https://github.com/apenwarr/git-subtree.git',
       :provider => 'git',
       :revision => '2793ee6ba',
     })}
