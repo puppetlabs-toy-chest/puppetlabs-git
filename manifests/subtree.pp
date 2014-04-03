@@ -29,8 +29,15 @@ class git::subtree {
     cwd     => $source_dir,
   }
   ->
+  package { [ 'asciidoc', 'xmlto', ]:
+    ensure => present,
+  }
+  ->
   exec { "/usr/bin/make prefix=/usr libexecdir=${::git_exec_path} install":
-    creates => "${::git_exec_path}/git-subtree",
+    onlyif  => [
+      "test ! -f ${::git_exec_path}/git-subtree",
+      'test ! -f /usr/share/man/man1/git-subtree.1',
+    ],
     cwd     => $source_dir,
   }
 
