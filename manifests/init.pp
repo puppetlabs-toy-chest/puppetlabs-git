@@ -8,8 +8,8 @@
 # Sample Usage:
 #  class { 'git': }
 #
-class git {
-  package { 'git':
+class git ($package_name = 'git') {
+  package { $package_name:
     ensure => installed,
   }
 }
