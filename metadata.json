@@ -1,0 +1,19 @@
+{
+  "project_page": "https://github.com/puppetlabs/puppetlabs-git",
+  "license": "Apache License, Version 2.0",
+  "source": "https://github.com/puppetlabs/puppetlabs-git",
+  "dependencies": [
+  {
+    "name": "puppetlabs/vcsrepo",
+    "version_requirement": ">=0.1.0"
+  }
+  ],
+  "types": [
+
+  ],
+  "description": "Module for installing git.",
+  "summary": "Module for installing git.",
+  "name": "puppetlabs-git",
+  "author": "Puppet Labs",
+  "version": "0.1.0"
+}
