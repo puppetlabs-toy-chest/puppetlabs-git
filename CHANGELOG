@@ -1,2 +1,15 @@
+##2014-06-25 - Release 0.1.0
+
+This release adds git::subtree and git::config, as well as fixes up the
+documentation and unit tests.
+
+####Features
+- README improvements.
+- Add git::subtree class to install git-subtree.
+- Add git::config resource
+
+####Bugs
+- Fix git_version fact.
+
 2011-06-03 - Dan Bode <dan@puppetlabs.com> - 0.0.1
 * initial commit
