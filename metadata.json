@@ -1,19 +1,20 @@
 {
-  "project_page": "https://github.com/puppetlabs/puppetlabs-git",
+  "name": "puppetlabs-git",
+  "version": "0.2.0",
+  "author": "Puppet Labs",
+  "summary": "Module for installing git.",
   "license": "Apache License, Version 2.0",
   "source": "https://github.com/puppetlabs/puppetlabs-git",
-  "dependencies": [
-  {
-    "name": "puppetlabs/vcsrepo",
-    "version_requirement": ">=0.1.0"
-  }
-  ],
+  "project_page": "https://github.com/puppetlabs/puppetlabs-git",
+  "issues_url": "https://github.com/puppetlabs/puppetlabs-git/issues",
   "types": [
-
+  
   ],
   "description": "Module for installing git.",
-  "summary": "Module for installing git.",
-  "name": "puppetlabs-git",
-  "author": "Puppet Labs",
-  "version": "0.1.0"
+  "dependencies": [
+    {
+      "name": "puppetlabs/vcsrepo",
+      "version_requirement": ">=0.1.0"
+    }
+  ]
 }
