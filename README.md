@@ -63,7 +63,7 @@ git::config { 'user.email':
 
 ###Resources
 
-* `git::config`: Set git global configuration for the user running puppet.
+* `git::config`: Set git global configuration for the user running puppet, or else for the specified `$user`.
 
 ###Facts
 
