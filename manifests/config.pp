@@ -47,25 +47,10 @@ define git::config(
   $key      = regsubst($name, '^([^\.]+)\.([^\.]+)$','\2'),
   $user     = 'root',
 ) {
-  if $user == 'root' {
-    # If the command should be executed as root
-
-    exec{"git config --global ${section}.${key} '${value}'":
-      environment => inline_template('<%= "HOME=" + ENV["HOME"] %>'),
-      path        => ['/usr/bin', '/bin'],
-      unless      => "git config --global --get ${section}.${key} '${value}'",
-    }
-
-  } else {
-    # If the command should be executed as non root user
-    #
-    # The .giconfig will be created in /home/$user
-
-    exec{"su - ${user} -c \"git config --global ${section}.${key} '${value}'\"":
-      environment => inline_template('<%= "HOME=" + ENV["HOME"] %>'),
-      path        => ['/usr/bin', '/bin'],
-      unless      => "su - ${user} -c \"git config --global --get ${section}.${key} '${value}'\"",
-    }
-
+  exec{"git config --global ${section}.${key} '${value}'":
+    environment => inline_template('<%= "HOME=" + ENV["HOME"] %>'),
+    path        => ['/usr/bin', '/bin', '/usr/local/bin'],
+    user        => $user,
+    unless      => "git config --global --get ${section}.${key} '${value}'",
   }
 }
