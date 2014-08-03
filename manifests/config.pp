@@ -48,6 +48,7 @@ define git::config(
   $user     = 'root',
 ) {
   exec{"git config --global ${section}.${key} '${value}'":
+    require     => Class['git'],
     environment => inline_template('<%= "HOME=" + ENV["HOME"] %>'),
     path        => ['/usr/bin', '/bin', '/usr/local/bin'],
     user        => $user,
