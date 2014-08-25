@@ -4,11 +4,25 @@ Puppet::Type.type(:git_config).provide(:git_config) do
 
   def create
     require 'etc'
-    home = Etc.getpwnam(@resource[:user]).dir
-    Puppet::Util::Execution.execute("git config --global #{@resource[:section]}.#{@resource[:key]} '#{@resource[:value]}'",
-                                    :uid => @resource[:user],
-                                    :failonfail => true,
-                                    :custom_environment => { 'HOME' => home },
-                                   )
+    user    = @resource[:user]
+    key     = @resource[:key]
+    section = @resource[:section]
+    value   = @resource[:value]
+    home    = Etc.getpwnam(user)
+
+    unless Puppet::Util::Execution.execute(
+      "git config --global --get #{section}.#{key} '#{value}'",
+        :uid => user,
+        :failonfail => true,
+        :custom_environment => { 'HOME' => home }
+       ) then
+      Puppet::Util::Execution.execute(
+        "git config --global #{section}.#{key} '#{value}'",
+            :uid => user,
+            :failonfail => true,
+            :custom_environment => { 'HOME' => home }
+           )
+    end
   end
+
 end
