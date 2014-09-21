@@ -26,21 +26,23 @@ class git::subtree {
   }
 
   exec { 'Build git-subtree':
-    command => "/usr/bin/make prefix=/usr libexecdir=${::git_exec_path}",
+    command => "make prefix=/usr libexecdir=${::git_exec_path}",
     creates => "${source_dir}/git-subtree",
     cwd     => $source_dir,
+    path    => ['/usr/bin', '/bin', '/usr/local/bin'],
   }
   ->
   package { [ 'asciidoc', 'xmlto', ]:
     ensure => present,
   }
   ->
-  exec { "/usr/bin/make prefix=/usr libexecdir=${::git_exec_path} install":
-    onlyif  => [
+  exec { "make prefix=/usr libexecdir=${::git_exec_path} install":
+    onlyif => [
       "test ! -f ${::git_exec_path}/git-subtree",
       'test ! -f /usr/share/man/man1/git-subtree.1',
     ],
-    cwd     => $source_dir,
+    cwd    => $source_dir,
+    path   => ['/usr/bin', '/bin', '/usr/local/bin'],
   }
 
   file { '/etc/bash_completion.d/git-subtree':
