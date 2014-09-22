@@ -41,16 +41,16 @@
 #
 # === Copyright
 #
-define git::config(
+define git::config (
   $value,
   $section  = regsubst($name, '^([^\.]+)\.([^\.]+)$','\1'),
   $key      = regsubst($name, '^([^\.]+)\.([^\.]+)$','\2'),
   $user     = 'root',
 ) {
-  exec{"git config --global ${section}.${key} '${value}'":
-    environment => inline_template('<%= "HOME=" + ENV["HOME"] %>'),
-    path        => ['/usr/bin', '/bin', '/usr/local/bin'],
-    user        => $user,
-    unless      => "git config --global --get ${section}.${key} '${value}'",
+  git_config { $title:
+    section => $section,
+    key     => $key,
+    value   => $value,
+    user    => $user,
   }
 }
