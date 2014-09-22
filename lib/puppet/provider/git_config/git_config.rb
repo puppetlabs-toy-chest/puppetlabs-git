@@ -37,7 +37,7 @@ Puppet::Type.type(:git_config).provide(:git_config) do
         :failonfail => false,
         :custom_environment => { 'HOME' => home }
        )
-    unless value == current then
+    unless value == current.strip then
       Puppet::Util::Execution.execute(
         "git config --global #{section}.#{key} '#{value}'",
             :uid => user,
