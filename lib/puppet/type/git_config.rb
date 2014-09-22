@@ -30,6 +30,15 @@ Puppet::Type.newtype(:git_config) do
 
   newproperty(:value) do
     desc "The config value. Example Mike Color or john.doe@example.com"
+
+    def insync?(is)
+      return true if provider.check_current?(value)
+      super
+    end
+
+    def sync
+      provider.update
+    end
   end
 
   newparam(:user) do
