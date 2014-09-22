@@ -1,12 +1,35 @@
 Puppet::Type.newtype(:git_config) do
 
+  desc <<-DOC
+  Used to configure git
+  === Examples
+
+
+   git_config { 'user.name':
+     value => 'John Doe',
+   }
+
+   git_config { 'user.email':
+     value => 'john.doe@example.com',
+   }
+
+   git_config { 'user.name':
+     value   => 'Mike Color',
+     user    => 'vagrant',
+     require => Class['git'],
+   }
+  DOC
+
+  validate do
+    fail('it is required to pass "value"') if self[:value].nil? || self[:value].empty? || self[:value] == :absent
+  end
+
   newparam(:name) do
     desc "The default namevar"
   end
 
   newproperty(:value) do
     desc "The config value. Example Mike Color or john.doe@example.com"
-    newvalues(/.+/)
   end
 
   newproperty(:user) do
@@ -27,8 +50,9 @@ Puppet::Type.newtype(:git_config) do
     identity = lambda { |x| x }
     [
       [
-        /^([^\.]+)\.([^\.]+)$/,
+        /^(([^\.]+)\.([^\.]+))$/,
         [
+          [ :name, identity ],
           [ :section, identity ],
           [ :key, identity ],
         ]

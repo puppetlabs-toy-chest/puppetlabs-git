@@ -2,6 +2,10 @@ Puppet::Type.type(:git_config).provide(:git_config) do
 
   mk_resource_methods
 
+  def initialize(value={})
+    super(value)
+  end
+
   def create
     require 'etc'
     user    = @resource[:user]
