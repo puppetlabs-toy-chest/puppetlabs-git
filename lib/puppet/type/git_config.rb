@@ -32,16 +32,16 @@ Puppet::Type.newtype(:git_config) do
     desc "The config value. Example Mike Color or john.doe@example.com"
   end
 
-  newproperty(:user) do
+  newparam(:user) do
     desc "The user for which the config will be set. Default value: root"
     defaultto "root"
   end
 
-  newproperty(:section, :namevar => true) do
+  newparam(:section, :namevar => true) do
     desc "The configuration section. Example: user."
   end
 
-  newproperty(:key, :namevar => true) do
+  newparam(:key, :namevar => true) do
     desc "The configuration key. Example: email."
   end
 
