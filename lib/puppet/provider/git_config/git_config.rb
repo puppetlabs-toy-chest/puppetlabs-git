@@ -4,22 +4,40 @@ Puppet::Type.type(:git_config).provide(:git_config) do
 
   def initialize(value={})
     super(value)
+    @property_flush = {}
   end
 
-  def create
+  def user=(value)
+    @property_flush[:user] = value
+  end
+
+  def key=(value)
+    @property_flush[:key] = value
+  end
+
+  def key=(value)
+    @property_flush[:key] = value
+  end
+
+  def value=(value)
+    @property_flush[:value] = value
+  end
+
+  def flush
     require 'etc'
     user    = @resource[:user]
     key     = @resource[:key]
     section = @resource[:section]
     value   = @resource[:value]
-    home    = Etc.getpwnam(user)
+    home    = Etc.getpwnam(user)[:dir]
 
-    unless Puppet::Util::Execution.execute(
+    current = Puppet::Util::Execution.execute(
       "git config --global --get #{section}.#{key} '#{value}'",
         :uid => user,
-        :failonfail => true,
+        :failonfail => false,
         :custom_environment => { 'HOME' => home }
-       ) then
+       )
+    unless value == current then
       Puppet::Util::Execution.execute(
         "git config --global #{section}.#{key} '#{value}'",
             :uid => user,
@@ -27,6 +45,7 @@ Puppet::Type.type(:git_config).provide(:git_config) do
             :custom_environment => { 'HOME' => home }
            )
     end
+    @property_hash = @resource.to_hash
   end
 
 end
