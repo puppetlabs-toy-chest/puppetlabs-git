@@ -47,20 +47,19 @@ Puppet::Type.newtype(:git_config) do
 
   # taken from augeasproviders
   def self.title_patterns
-    identity = lambda { |x| x }
     [
       [
         /^(([^\.]+)\.([^\.]+))$/,
         [
-          [ :name, identity ],
-          [ :section, identity ],
-          [ :key, identity ],
+          [ :name ],
+          [ :section ],
+          [ :key ],
         ]
       ],
       [
         /(.*)/,
         [
-          [ :name, identity ],
+          [ :name ],
         ]
       ]
     ]
