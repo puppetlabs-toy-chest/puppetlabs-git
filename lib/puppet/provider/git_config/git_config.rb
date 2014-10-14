@@ -2,11 +2,11 @@ Puppet::Type.type(:git_config).provide(:git_config) do
 
   mk_resource_methods
 
-  def check_current?(value)
+  def value
     require 'etc'
-    user    = @resource[:user]
-    key     = @resource[:key]
-    section = @resource[:section]
+    user    = @property_hash[:user]    = @resource[:user]
+    key     = @property_hash[:key]     = @resource[:key]
+    section = @property_hash[:section] = @resource[:section]
     home    = Etc.getpwnam(user)[:dir]
 
     current = Puppet::Util::Execution.execute(
@@ -15,15 +15,15 @@ Puppet::Type.type(:git_config).provide(:git_config) do
       :failonfail => false,
       :custom_environment => { 'HOME' => home }
     )
-    return value == current.strip
+    @property_hash[:value] = current.strip
+    @property_hash[:value]
   end
 
-  def update
+  def value=(value)
     require 'etc'
     user    = @resource[:user]
     key     = @resource[:key]
     section = @resource[:section]
-    value   = @resource[:value]
     home    = Etc.getpwnam(user)[:dir]
 
     Puppet::Util::Execution.execute(
