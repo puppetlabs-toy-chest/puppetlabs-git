@@ -2,11 +2,30 @@ require 'spec_helper'
 
 describe 'git::subtree' do
 
-  context 'when git version < 1.7.0' do
-    let(:facts) { { :git_version => '1.6.0' } }
+  versions = ['1.6.0', '1.7.0', '1.7.11']
+  versions.each do |version|
+    context "when git version is #{version}" do
+    let(:facts) { {
+      :git_version   => version,
+     } }
+      if version < '1.7.0'
+        it 'should fail' do
+          expect { should create_class('git::subtree') }.to raise_error(Puppet::Error, /git-subtree requires git 1.7 or later!/)
+        end
+      else
+        it { should create_class('git::subtree') }
+        it { should contain_class('git') }
+        it { should contain_package('asciidoc') }
+        it { should contain_package('xmlto') }
+        it { should contain_exec('Install git-subtree') }
+        it { should contain_exec('Build git-subtree') }
 
-    it 'should fail' do
-      expect { should create_class('git::subtree') }.to raise_error(Puppet::Error, /git-subtree requires git 1.7 or later!/)
+        it { should create_file('/etc/bash_completion.d/git-subtree').with({
+          :ensure => 'file',
+          :source => 'puppet:///modules/git/subtree/bash_completion.sh',
+          :mode   => '0644',
+        })}
+      end
     end
   end
 
@@ -15,8 +34,6 @@ describe 'git::subtree' do
       :git_version   => '1.7.0',
       :git_exec_path => '/usr/lib/git-core',
     } }
-
-    it { should create_class('git') }
 
     it { should create_vcsrepo('/usr/src/git-subtree').with({
       :ensure   => 'present',
@@ -34,13 +51,7 @@ describe 'git::subtree' do
       :creates => '/usr/lib/git-core/git-subtree',
       :cwd     => '/usr/src/git-subtree',
     })}
-
-    it { should create_file('/etc/bash_completion.d/git-subtree').with({
-      :ensure => 'file',
-      :source => 'puppet:///modules/git/subtree/bash_completion.sh',
-      :mode   => '0644',
-    })}
-  end 
+  end
 
   context 'when git version >= 1.7.11' do
     let(:facts) { {
@@ -48,7 +59,6 @@ describe 'git::subtree' do
       :git_exec_path => '/usr/lib/git-core',
     } }
 
-    it { should create_class('git') }
 
     it { should create_exec('/usr/bin/make prefix=/usr libexecdir=/usr/lib/git-core').with({
       :creates => '/usr/share/doc/git/contrib/subtree/git-subtree',
@@ -59,12 +69,7 @@ describe 'git::subtree' do
       :creates => '/usr/lib/git-core/git-subtree',
       :cwd     => '/usr/share/doc/git/contrib/subtree',
     })}
+  end
 
-    it { should create_file('/etc/bash_completion.d/git-subtree').with({
-      :ensure => 'file',
-      :source => 'puppet:///modules/git/subtree/bash_completion.sh',
-      :mode   => '0644',
-    })}
-  end 
 
 end
