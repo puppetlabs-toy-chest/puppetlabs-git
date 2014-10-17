@@ -35,7 +35,8 @@ class git::subtree {
     ensure => present,
   }
   ->
-  exec { "/usr/bin/make prefix=/usr libexecdir=${::git_exec_path} install":
+  exec { "Install git-subtree":
+    command => "/usr/bin/make prefix=/usr libexecdir=${::git_exec_path} install",
     onlyif  => [
       "test ! -f ${::git_exec_path}/git-subtree",
       'test ! -f /usr/share/man/man1/git-subtree.1',
