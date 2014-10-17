@@ -33,6 +33,7 @@ describe 'git::subtree' do
     let(:facts) { {
       :git_version   => '1.7.0',
       :git_exec_path => '/usr/lib/git-core',
+      :git_html_path => "/usr/share/doc/git"
     } }
 
     it { should create_vcsrepo('/usr/src/git-subtree').with({
@@ -42,13 +43,14 @@ describe 'git::subtree' do
       :revision => '2793ee6ba',
     })}
 
-    it { should create_exec('/usr/bin/make prefix=/usr libexecdir=/usr/lib/git-core').with({
+    it { should create_exec('Build git-subtree').with({
+      :command => '/usr/bin/make prefix=/usr libexecdir=/usr/lib/git-core',
       :creates => '/usr/src/git-subtree/git-subtree',
       :cwd     => '/usr/src/git-subtree',
     })}
 
-    it { should create_exec('/usr/bin/make prefix=/usr libexecdir=/usr/lib/git-core install').with({
-      :creates => '/usr/lib/git-core/git-subtree',
+    it { should create_exec('Install git-subtree').with({
+      :command => '/usr/bin/make prefix=/usr libexecdir=/usr/lib/git-core install',
       :cwd     => '/usr/src/git-subtree',
     })}
   end
@@ -57,16 +59,16 @@ describe 'git::subtree' do
     let(:facts) { {
       :git_version   => '1.7.11',
       :git_exec_path => '/usr/lib/git-core',
+      :git_html_path => "/usr/share/doc/git"
     } }
 
-
-    it { should create_exec('/usr/bin/make prefix=/usr libexecdir=/usr/lib/git-core').with({
+    it { should create_exec('Build git-subtree').with({
       :creates => '/usr/share/doc/git/contrib/subtree/git-subtree',
       :cwd     => '/usr/share/doc/git/contrib/subtree',
     })}
 
-    it { should create_exec('/usr/bin/make prefix=/usr libexecdir=/usr/lib/git-core install').with({
-      :creates => '/usr/lib/git-core/git-subtree',
+    it { should create_exec('Install git-subtree').with({
+      :command => '/usr/bin/make prefix=/usr libexecdir=/usr/lib/git-core install',
       :cwd     => '/usr/share/doc/git/contrib/subtree',
     })}
   end
