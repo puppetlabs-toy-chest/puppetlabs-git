@@ -37,6 +37,13 @@
 #     require => Class['git'],
 #   }
 #
+#   git::config { 'http.sslCAInfo':
+#     value   => $companyCAroot,
+#     user    => 'root',
+#     scope   => 'system',
+#     require => Company::Certificate['companyCAroot'],
+#   }
+#
 # === Authors
 #
 # === Copyright
@@ -46,11 +53,12 @@ define git::config(
   $section  = regsubst($name, '^([^\.]+)\.([^\.]+)$','\1'),
   $key      = regsubst($name, '^([^\.]+)\.([^\.]+)$','\2'),
   $user     = 'root',
+  $scope    = 'global',
 ) {
-  exec{"git config --global ${section}.${key} '${value}'":
+  exec{"git config --${scope} ${section}.${key} '${value}'":
     environment => inline_template('<%= "HOME=" + ENV["HOME"] %>'),
     path        => ['/usr/bin', '/bin', '/usr/local/bin'],
     user        => $user,
-    unless      => "git config --global --get ${section}.${key} '${value}'",
+    unless      => "git config --${scope} --get ${section}.${key} '${value}'",
   }
 }
