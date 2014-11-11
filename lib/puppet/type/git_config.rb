@@ -18,6 +18,13 @@ Puppet::Type.newtype(:git_config) do
      user    => 'vagrant',
      require => Class['git'],
    }
+   
+   git_config { 'http.sslCAInfo':
+     value   => $companyCAroot,
+     user    => 'root',
+     scope   => 'system',
+     require => Company::Certificate['companyCAroot'],
+   }
   DOC
 
   validate do
@@ -43,6 +50,11 @@ Puppet::Type.newtype(:git_config) do
 
   newparam(:key, :namevar => true) do
     desc "The configuration key. Example: email."
+  end
+
+  newparam(:scope) do
+    desc "The scope of the configuration, can be system or global. Default value: global"
+    defaultto "global"
   end
 
   # taken from augeasproviders

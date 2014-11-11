@@ -7,10 +7,11 @@ Puppet::Type.type(:git_config).provide(:git_config) do
     user    = @property_hash[:user]    = @resource[:user]
     key     = @property_hash[:key]     = @resource[:key]
     section = @property_hash[:section] = @resource[:section]
+    scope   = @property_hash[:scope]   = @resource[:scope]
     home    = Etc.getpwnam(user)[:dir]
 
     current = Puppet::Util::Execution.execute(
-      "git config --global --get #{section}.#{key}",
+      "git config --#{scope} --get #{section}.#{key}",
       :uid => user,
       :failonfail => false,
       :custom_environment => { 'HOME' => home }
@@ -24,10 +25,11 @@ Puppet::Type.type(:git_config).provide(:git_config) do
     user    = @resource[:user]
     key     = @resource[:key]
     section = @resource[:section]
+    scope   = @resource[:scope]
     home    = Etc.getpwnam(user)[:dir]
 
     Puppet::Util::Execution.execute(
-      "git config --global #{section}.#{key} '#{value}'",
+      "git config --#{scope} #{section}.#{key} '#{value}'",
       :uid => user,
       :failonfail => true,
       :custom_environment => { 'HOME' => home }
