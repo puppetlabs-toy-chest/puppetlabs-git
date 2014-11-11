@@ -1,9 +1,6 @@
 require 'spec_helper'
 
 describe 'git::config', :type => :define do
-  before :each do
-    ENV["HOME"] = '/home/JCDenton'
-  end
   context 'has working default parameters' do
     let(:title) { 'user.name' }
     let(:params) {
@@ -12,29 +9,31 @@ describe 'git::config', :type => :define do
       }
     }
     it do
-      should contain_exec("git config --global user.name 'JC Denton'").with(
-        'environment' => 'HOME=/home/JCDenton',
-        'path'        => ["/usr/bin", "/bin", "/usr/local/bin"],
-        'user'        => 'root',
-        'unless'      => "git config --global --get user.name 'JC Denton'",
+      should contain_git_config('user.name').with(
+        'value'   => 'JC Denton',
+        'section' => 'user',
+        'key'     => 'name',
+        'user'    => 'root',
       )
+      have_git_config_resource_count(1)
     end
   end
-  context 'allows you to specify a user' do
+  context 'allows you to change user' do
     let(:title) { 'user.email' }
     let(:params) {
       {
-        :user  => 'jcdenton',
         :value => 'jcdenton@UNATCO.com',
+        :user  => 'admin'
       }
     }
     it do
-      should contain_exec("git config --global user.email 'jcdenton@UNATCO.com'").with(
-        'environment' => 'HOME=/home/JCDenton',
-        'path'        => ["/usr/bin", "/bin", "/usr/local/bin"],
-        'user'        => 'jcdenton',
-        'unless'      => "git config --global --get user.email 'jcdenton@UNATCO.com'",
+      should contain_git_config('user.email').with(
+        'value'   => 'jcdenton@UNATCO.com',
+        'section' => 'user',
+        'key'     => 'email',
+        'user'    => 'admin',
       )
+      have_git_config_resource_count(1)
     end
   end
 end
