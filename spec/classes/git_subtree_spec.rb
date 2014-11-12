@@ -44,13 +44,13 @@ describe 'git::subtree' do
     })}
 
     it { should create_exec('Build git-subtree').with({
-      :command => '/usr/bin/make prefix=/usr libexecdir=/usr/lib/git-core',
+      :command => 'make prefix=/usr libexecdir=/usr/lib/git-core',
       :creates => '/usr/src/git-subtree/git-subtree',
       :cwd     => '/usr/src/git-subtree',
     })}
 
     it { should create_exec('Install git-subtree').with({
-      :command => '/usr/bin/make prefix=/usr libexecdir=/usr/lib/git-core install',
+      :command => 'make prefix=/usr libexecdir=/usr/lib/git-core install',
       :cwd     => '/usr/src/git-subtree',
     })}
   end
@@ -68,7 +68,7 @@ describe 'git::subtree' do
     })}
 
     it { should create_exec('Install git-subtree').with({
-      :command => '/usr/bin/make prefix=/usr libexecdir=/usr/lib/git-core install',
+      :command => 'make prefix=/usr libexecdir=/usr/lib/git-core install',
       :cwd     => '/usr/share/doc/git/contrib/subtree',
     })}
   end
