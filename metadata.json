@@ -2,7 +2,7 @@
   "name": "puppetlabs-git",
   "version": "0.3.0",
   "author": "Puppet Labs",
-  "summary": "Module for installing git.",
+  "summary": "Module for installing Git or Gitosis.",
   "license": "Apache License, Version 2.0",
   "source": "https://github.com/puppetlabs/puppetlabs-git",
   "project_page": "https://github.com/puppetlabs/puppetlabs-git",
