@@ -8,13 +8,9 @@
 #   The config value. Example: Mike Color or john.doe@example.com.
 #   See examples below.
 #
-# [*section*]
-#   The configuration section. Example: user.
-#   By default extracted from the resource name.
-#
 # [*key*]
-#   The configuration key. Example: email.
-#   By default extracted from the resource name.
+#   The name of the option to be set. Example: user.email.
+#   Default value: same as resource name.
 #
 # [*user*]
 #   The user for which the config will be set. Default value: root
@@ -54,14 +50,22 @@
 #
 define git::config (
   $value,
-  $section  = regsubst($name, '^([^\.]+)\.([^\.]+)$','\1'),
-  $key      = regsubst($name, '^([^\.]+)\.([^\.]+)$','\2'),
+  $key      = $name,
+  $section  = undef,
   $user     = 'root',
   $scope    = 'global',
 ) {
+  # Backwards compatibility with deprecated $section parameter.
+  # (Old versions took separate $section and $key, e.g. "user" and "email".)
+  if $section != undef {
+    warning('Parameter `section` is deprecated, supply the full option name (e.g. "user.email") in the `key` parameter')
+    $_key = "${section}.${key}"
+  } else {
+    $_key = $key
+  }
+
   git_config { $title:
-    section => $section,
-    key     => $key,
+    key     => $_key,
     value   => $value,
     user    => $user,
     scope   => $scope,

@@ -10,8 +10,13 @@ Puppet::Type.type(:git_config).provide(:git_config) do
     scope   = @property_hash[:scope]   = @resource[:scope]
     home    = Etc.getpwnam(user)[:dir]
 
+    # Backwards compatibility with deprecated $section parameter.
+    if section && !section.empty? && section != :absent
+      key = "#{section}.#{key}"
+    end
+
     current = Puppet::Util::Execution.execute(
-      "git config --#{scope} --get #{section}.#{key}",
+      "git config --#{scope} --get #{key}",
       :uid => user,
       :failonfail => false,
       :custom_environment => { 'HOME' => home }
@@ -28,8 +33,13 @@ Puppet::Type.type(:git_config).provide(:git_config) do
     scope   = @resource[:scope]
     home    = Etc.getpwnam(user)[:dir]
 
+    # Backwards compatibility with deprecated $section parameter.
+    if section && !section.empty? && section != :absent
+      key = "#{section}.#{key}"
+    end
+
     Puppet::Util::Execution.execute(
-      "git config --#{scope} #{section}.#{key} '#{value}'",
+      "git config --#{scope} #{key} '#{value}'",
       :uid => user,
       :failonfail => true,
       :custom_environment => { 'HOME' => home }

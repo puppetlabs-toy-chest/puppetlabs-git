@@ -29,10 +29,8 @@ Puppet::Type.newtype(:git_config) do
 
   validate do
     fail('it is required to pass "value"') if self[:value].nil? || self[:value].empty? || self[:value] == :absent
-  end
-
-  newparam(:name) do
-    desc "The default namevar"
+    warning('Parameter `section` is deprecated, supply the full option name (e.g. "user.email") in the `key` parameter') if
+      self[:section] && !self[:section].empty? && self[:section] != :absent
   end
 
   newproperty(:value) do
@@ -44,37 +42,18 @@ Puppet::Type.newtype(:git_config) do
     defaultto "root"
   end
 
-  newparam(:section, :namevar => true) do
-    desc "The configuration section. Example: user."
+  newparam(:key, :namevar => true) do
+    desc "The configuration key. Example: user.email."
   end
 
-  newparam(:key, :namevar => true) do
-    desc "The configuration key. Example: email."
+  newparam(:section) do
+    desc "Deprecated: the configuration section. For example, to set user.email, use section => \"user\", key => \"email\"."
+    defaultto :absent
   end
 
   newparam(:scope) do
     desc "The scope of the configuration, can be system or global. Default value: global"
     defaultto "global"
-  end
-
-  # taken from augeasproviders
-  def self.title_patterns
-    [
-      [
-        /^(([^\.]+)\.([^\.]+))$/,
-        [
-          [ :name ],
-          [ :section ],
-          [ :key ],
-        ]
-      ],
-      [
-        /(.*)/,
-        [
-          [ :name ],
-        ]
-      ]
-    ]
   end
 
 end
