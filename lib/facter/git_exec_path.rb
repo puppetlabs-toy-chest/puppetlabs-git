@@ -1,4 +1,15 @@
-# git_exec_path.rb
+# Fact: git_exec_path
+#
+# Purpose: get git's exec path
+#
+# Resolution:
+#   Uses git's --exec-path flag
+#
+# Caveats:
+#   none
+#
+# Notes:
+#   None
 Facter.add('git_exec_path') do
   case Facter.value(:osfamily)
   when 'windows'

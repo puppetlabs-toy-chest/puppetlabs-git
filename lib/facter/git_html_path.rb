@@ -1,4 +1,15 @@
-# git_html_path.rb
+# Fact: git_html_path
+#
+# Purpose: get git's html path
+#
+# Resolution:
+#   Uses git's --html-path flag
+#
+# Caveats:
+#   none
+#
+# Notes:
+#   None
 Facter.add('git_html_path') do
   case Facter.value(:osfamily)
   when 'windows'
