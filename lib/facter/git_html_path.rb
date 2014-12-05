@@ -13,9 +13,12 @@
 Facter.add('git_html_path') do
   case Facter.value(:osfamily)
   when 'windows'
-    setcode 'git --html-path 2>nul'
+    null_path = 'nul'
   else
-    setcode 'git --html-path 2>/dev/null'
+    null_path = '/dev/null'
+  end
+  git_html_path_cmd = "git --html-path 2>#{null_path}"
+  setcode do
+    Facter::Util::Resolution.exec(git_html_path_cmd)
   end
 end
-

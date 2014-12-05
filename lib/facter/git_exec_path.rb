@@ -13,9 +13,13 @@
 Facter.add('git_exec_path') do
   case Facter.value(:osfamily)
   when 'windows'
-    setcode 'git --exec-path 2>nul'
+    null_path = 'nul'
   else
-    setcode 'git --exec-path 2>/dev/null'
+    null_path = '/dev/null'
+  end
+  git_exec_path_cmd = "git --exec-path 2>#{null_path}"
+  setcode do
+    Facter::Util::Resolution.exec(git_exec_path_cmd)
   end
 end
 
