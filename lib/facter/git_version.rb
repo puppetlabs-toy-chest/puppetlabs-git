@@ -1,10 +1,3 @@
-output = %x{git --version 2>&1}
-
-if $?.exitstatus and output.match(/git version ((\d+\.){2,}\d+).*/)
-  Facter.add('git_version') do
-    setcode do
-      $1
-    end
 # Fact: git_version
 #
 # Purpose: get git's current version
@@ -17,5 +10,11 @@ if $?.exitstatus and output.match(/git version ((\d+\.){2,}\d+).*/)
 #
 # Notes:
 #   None
+Facter.add('git_version') do
+  git_version_cmd = 'git --version 2>&1'
+  git_version_result = Facter::Util::Resolution.exec(git_version_cmd)
+  setcode do
+    git_version_result.to_s.lines.first.strip.split(/version/)[1].strip
   end
 end
+
