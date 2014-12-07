@@ -10,7 +10,7 @@
 #
 class git ($package_name = 'git') {
   if(!defined(Package[$package_name])) {
-    package { "$package_name":
+    package { $package_name:
       ensure => present,
     }
   }
