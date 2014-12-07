@@ -9,7 +9,9 @@
 #  class { 'git': }
 #
 class git ($package_name = 'git') {
-  package { $package_name:
-    ensure => installed,
+  if(!defined(Package[$package_name])) {
+    package { "$package_name":
+      ensure => present,
+    }
   }
 }
