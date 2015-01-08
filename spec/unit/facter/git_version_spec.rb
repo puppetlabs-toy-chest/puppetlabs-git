@@ -24,5 +24,12 @@ hub version 1.12.2
         Facter.fact(:git_version).value.should == "2.1.2"
       end
     end
+
+    context 'no git present' do
+      it do
+        Facter::Util::Resolution.expects(:which).with("git").returns(false)
+        Facter.fact(:git_version).should be_nil
+      end
+    end
   end
 end
