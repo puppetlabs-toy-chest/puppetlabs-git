@@ -17,11 +17,12 @@
 #
 class git (
   $package_name   = 'git',
+  $package_ensure = 'installed',
   $package_manage = true,
-  ) {
+) {
   if ( $package_manage ) {
     package { $package_name:
-      ensure => installed,
+      ensure => $package_ensure,
     }
   }
 }
