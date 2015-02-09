@@ -13,7 +13,7 @@ describe 'git::config', :type => :define do
         'value'   => 'JC Denton',
         'section' => 'user',
         'key'     => 'name',
-        'user'    => 'root',
+        'user'    => 'root'
       )
       have_git_config_resource_count(1)
     end
@@ -31,7 +31,7 @@ describe 'git::config', :type => :define do
         'value'   => 'jcdenton@UNATCO.com',
         'section' => 'user',
         'key'     => 'email',
-        'user'    => 'admin',
+        'user'    => 'admin'
       )
       have_git_config_resource_count(1)
     end
