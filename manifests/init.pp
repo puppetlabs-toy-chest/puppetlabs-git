@@ -9,7 +9,5 @@
 #  class { 'git': }
 #
 class git ($package_name = 'git') {
-  package { $package_name:
-    ensure => installed,
-  }
+  ensure_packages([ $package_name ])
 }
