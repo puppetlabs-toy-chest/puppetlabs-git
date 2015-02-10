@@ -11,7 +11,7 @@ Puppet::Type.type(:git_config).provide(:git_config) do
     home    = Etc.getpwnam(user)[:dir]
 
     # Backwards compatibility with deprecated $section parameter.
-    if section && !section.empty? && section != :absent
+    if section && !section.empty?
       key = "#{section}.#{key}"
     end
 
@@ -34,7 +34,7 @@ Puppet::Type.type(:git_config).provide(:git_config) do
     home    = Etc.getpwnam(user)[:dir]
 
     # Backwards compatibility with deprecated $section parameter.
-    if section && !section.empty? && section != :absent
+    if section && !section.empty?
       key = "#{section}.#{key}"
     end
 

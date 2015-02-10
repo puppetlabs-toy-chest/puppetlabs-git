@@ -30,7 +30,7 @@ Puppet::Type.newtype(:git_config) do
   validate do
     fail('it is required to pass "value"') if self[:value].nil? || self[:value].empty? || self[:value] == :absent
     warning('Parameter `section` is deprecated, supply the full option name (e.g. "user.email") in the `key` parameter') if
-      self[:section] && !self[:section].empty? && self[:section] != :absent
+      self[:section] && !self[:section].empty?
   end
 
   newproperty(:value) do
@@ -48,7 +48,7 @@ Puppet::Type.newtype(:git_config) do
 
   newparam(:section) do
     desc "Deprecated: the configuration section. For example, to set user.email, use section => \"user\", key => \"email\"."
-    defaultto :absent
+    defaultto ""
   end
 
   newparam(:scope) do
