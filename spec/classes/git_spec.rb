@@ -6,6 +6,15 @@ describe 'git' do
     it { should contain_package('git') }
   end
 
+  context 'with package_manage set to false' do
+    let(:params) {
+      {
+        :package_manage => false,
+      }
+    }
+    it { should_not contain_package('git') }
+  end
+
   context 'with a custom git package name' do
     let(:params) {
       {
