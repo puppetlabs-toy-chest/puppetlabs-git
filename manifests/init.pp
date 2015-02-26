@@ -8,8 +8,20 @@
 # Sample Usage:
 #  class { 'git': }
 #
-class git ($package_name = 'git') {
-  package { $package_name:
-    ensure => installed,
+# === Parameters
+#
+# [*package_manage*]
+#   boolean toggle to overide the management of the git package.
+#   You may want to change this behavior if another module manages git packages
+#   defaults to true
+#
+class git (
+  $package_name   = 'git',
+  $package_manage = true,
+  ) {
+  if ( $package_manage ) {
+    package { $package_name:
+      ensure => installed,
+    }
   }
 }
