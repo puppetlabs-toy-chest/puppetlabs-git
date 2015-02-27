@@ -11,8 +11,7 @@ describe 'git::config', :type => :define do
     it do
       should contain_git_config('user.name').with(
         'value'   => 'JC Denton',
-        'section' => 'user',
-        'key'     => 'name',
+        'key'     => 'user.name',
         'user'    => 'root'
       )
       have_git_config_resource_count(1)
@@ -29,8 +28,7 @@ describe 'git::config', :type => :define do
     it do
       should contain_git_config('user.email').with(
         'value'   => 'jcdenton@UNATCO.com',
-        'section' => 'user',
-        'key'     => 'email',
+        'key'     => 'user.email',
         'user'    => 'admin'
       )
       have_git_config_resource_count(1)
