@@ -24,4 +24,17 @@ describe 'git' do
     it { should contain_package('gitolite') }
   end
 
+  context 'with package_ensure => latest' do
+    let(:params) {
+      {
+        :package_ensure => 'latest',
+      }
+    }
+    it { should contain_package('git').with(
+      {
+        'ensure' => 'latest'
+      }
+    )}
+  end
+
 end
