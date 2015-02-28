@@ -16,7 +16,7 @@ Puppet::Type.type(:git_config).provide(:git_config) do
     end
 
     current = Puppet::Util::Execution.execute(
-      "git config --#{scope} --get #{key}",
+      "cd / ; git config --#{scope} --get #{key}",
       :uid => user,
       :failonfail => false,
       :custom_environment => { 'HOME' => home }
@@ -39,7 +39,7 @@ Puppet::Type.type(:git_config).provide(:git_config) do
     end
 
     Puppet::Util::Execution.execute(
-      "git config --#{scope} #{key} '#{value}'",
+      "cd / ; git config --#{scope} #{key} '#{value}'",
       :uid => user,
       :failonfail => true,
       :custom_environment => { 'HOME' => home }
