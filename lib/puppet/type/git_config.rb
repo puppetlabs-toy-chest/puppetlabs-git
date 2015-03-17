@@ -18,7 +18,7 @@ Puppet::Type.newtype(:git_config) do
      user    => 'vagrant',
      require => Class['git'],
    }
-   
+
    git_config { 'http.sslCAInfo':
      value   => $companyCAroot,
      user    => 'root',
@@ -33,6 +33,10 @@ Puppet::Type.newtype(:git_config) do
       self[:section] && !self[:section].empty?
   end
 
+  newparam(:name, :namevar => true) do
+    desc "The name of the config"
+  end
+
   newproperty(:value) do
     desc "The config value. Example Mike Color or john.doe@example.com"
   end
@@ -42,8 +46,12 @@ Puppet::Type.newtype(:git_config) do
     defaultto "root"
   end
 
-  newparam(:key, :namevar => true) do
+  newparam(:key) do
     desc "The configuration key. Example: user.email."
+  end
+
+  autorequire(:user) do
+    self[:user]
   end
 
   newparam(:section) do
