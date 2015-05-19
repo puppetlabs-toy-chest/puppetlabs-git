@@ -35,6 +35,16 @@ Simply include the `git` class.
 include git
 ```
 
+###I want to configure `git` using hiera
+
+```yaml
+git::configs:
+  user.name:
+    value: 'test'
+  user.email:
+    value: 'test@test.com'
+```
+
 ###I want to use `git subtree` with bash completion
 
 ```puppet
