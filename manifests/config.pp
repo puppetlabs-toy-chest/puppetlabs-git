@@ -65,9 +65,9 @@ define git::config (
   }
 
   git_config { $title:
-    key     => $_key,
-    value   => $value,
-    user    => $user,
-    scope   => $scope,
+    key   => $_key,
+    value => $value,
+    user  => $user,
+    scope => $scope,
   }
 }
