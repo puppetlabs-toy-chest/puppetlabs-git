@@ -36,5 +36,14 @@ describe 'git' do
       }
     )}
   end
+  
+  context 'with configs' do
+    let(:params) {
+      {
+        :configs => {"user.name" => {"value" => "test"}}
+      }
+    }
+    it { should contain_git__config('user.name') }
+  end
 
 end
