@@ -34,5 +34,5 @@ class git (
     }
   }
   
-  create_resources(git::config, $configs)
+  create_resources(git::config, git_config_hash($configs))
 }
