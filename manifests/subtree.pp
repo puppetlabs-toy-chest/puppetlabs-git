@@ -49,6 +49,8 @@ class git::subtree {
   file { '/etc/bash_completion.d/git-subtree':
     ensure => file,
     source => 'puppet:///modules/git/subtree/bash_completion.sh',
+    owner  => 'root',
+    group  => 'root',
     mode   => '0644',
   }
 
