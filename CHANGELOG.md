@@ -1,3 +1,22 @@
+##2015-05-26 - Release 0.4.0
+###Summary
+This release adds greater flexibility to `git` and `git_config` and includes a couple of bug fixes, including fixing `git_config` with multiple users.
+
+####Deprecations
+- The `section` parameter in `git_config` and `git::config` has been deprecated. The full option name should be passed to the `key` parameter instead (i.e., "user.email")
+
+####Features
+- Refactored existing facts and added spec tests (MODULES-1571)
+- Test and doc updates
+- New parameters in class `git`:
+  - `package_manage`
+  - `package_ensure`
+  - `configs`
+
+####Bugfixes
+- Only run if git is actually installed (MODULES-1238)
+- Fix `git_config` to work with multiple users (MODULES-1863)
+
 ##2014-11-18 - Release 0.3.0
 ###Summary
 This release primarily includes improvements to `git::config` and the addition of the `git_config` type&provider, along with much improved testing
