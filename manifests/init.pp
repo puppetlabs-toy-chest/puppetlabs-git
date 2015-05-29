@@ -28,7 +28,7 @@ class git (
   $package_manage = true,
   $configs = {}
 ) {
-  if ( $package_manage ) {
+  if ( ($package_manage) and (!defined(Package[$package_name])) ) {
     package { $package_name:
       ensure => $package_ensure,
     }
