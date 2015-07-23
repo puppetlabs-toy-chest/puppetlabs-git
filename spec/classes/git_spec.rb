@@ -40,10 +40,14 @@ describe 'git' do
   context 'with configs' do
     let(:params) {
       {
-        :configs => {"user.name" => {"value" => "test"}}
+        :configs => {
+          "user.name" => {"value" => "test"},
+          "user.email" => "test@example.com"
+        }
       }
     }
     it { should contain_git__config('user.name') }
+    it { should contain_git__config('user.email') }
   end
 
 end

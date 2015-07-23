@@ -39,10 +39,11 @@ include git
 
 ```yaml
 git::configs:
-  user.name:
-    value: 'test'
-  user.email:
-    value: 'test@test.com'
+  user.name: 'test'
+  user.email: 'test@example.com'
+  core.filemode:
+    value: false
+    scope: system
 ```
 
 ###I want to use `git subtree` with bash completion
