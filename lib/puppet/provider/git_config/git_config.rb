@@ -1,3 +1,5 @@
+require "shellwords"
+
 Puppet::Type.type(:git_config).provide(:git_config) do
 
   mk_resource_methods
@@ -40,7 +42,7 @@ Puppet::Type.type(:git_config).provide(:git_config) do
     end
 
     Puppet::Util::Execution.execute(
-      "cd / ; git config --#{scope} #{key} '#{value}'",
+      "cd / ; git config --#{scope} #{key} #{value.shellescape}",
       :uid => user,
       :failonfail => true,
       :combine => true,
