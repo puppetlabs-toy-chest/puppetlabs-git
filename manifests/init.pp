@@ -22,17 +22,22 @@
 # [*configs*]
 #   hash of configurations as per the git::config defined type
 #
+# [*configs_defaults*]
+#   hash of configuration defaults as per the git::config defined type
+#   to use for every *configs* item
+#
 class git (
   $package_name   = 'git',
   $package_ensure = 'installed',
   $package_manage = true,
-  $configs = {}
+  $configs = {},
+  $configs_defaults = {}
 ) {
   if ( $package_manage ) {
     package { $package_name:
       ensure => $package_ensure,
     }
   }
-  
-  create_resources(git::config, git_config_hash($configs))
+
+  create_resources(git::config, git_config_hash($configs), $configs_defaults)
 }
