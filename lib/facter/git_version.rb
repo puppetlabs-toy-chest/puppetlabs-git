@@ -11,6 +11,7 @@
 # Notes:
 #   None
 Facter.add('git_version') do
+    confine :kernel => /^(?!windows$)/
   setcode do
     if Facter::Util::Resolution.which('git')
       git_version_cmd = 'git --version 2>&1'
