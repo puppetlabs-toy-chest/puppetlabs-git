@@ -3,6 +3,7 @@ require "spec_helper"
 describe Facter::Util::Fact do
   before {
     Facter.clear
+    allow(Facter.fact(:kernel)).to receive(:value).and_return("Linux")
   }
 
   describe "git_version" do
