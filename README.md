@@ -46,6 +46,15 @@ git::configs:
     scope: system
 ```
 
+If using the flat config syntax, options common to all items can be set:
+
+```yaml
+git::configs:
+  core.filemode: false
+git::configs_defaults:
+  scope: system
+```
+
 ###I want to use `git subtree` with bash completion
 
 ```puppet
