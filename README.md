@@ -2,10 +2,10 @@
 
 ####Table of Contents
 
-1. [Overview - What is the [Modulename] module?](#overview)
+1. [Overview - What is the git module?](#overview)
 2. [Module Description - What does the module do?](#module-description)
-3. [Setup - The basics of getting started with [Modulename]](#setup)
-    * [What [Modulename] affects](#what-registry-affects)
+3. [Setup - The basics of getting started with git](#setup)
+    * [What git affects](#what-registry-affects)
 4. [Usage - Configuration options and additional functionality](#usage)
 6. [Limitations - OS compatibility, etc.](#limitations)
 7. [Development - Guide for contributing to the module](#development)
