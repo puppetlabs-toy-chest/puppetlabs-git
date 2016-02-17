@@ -64,10 +64,16 @@ define git::config (
     $_key = $key
   }
 
+  $git_package = $::git::package_manage ? {
+    true    => Package[$::git::package_name],
+    default => undef,
+  }
+
   git_config { $title:
-    key   => $_key,
-    value => $value,
-    user  => $user,
-    scope => $scope,
+    key     => $_key,
+    value   => $value,
+    user    => $user,
+    scope   => $scope,
+    require => $git_package,
   }
 }
