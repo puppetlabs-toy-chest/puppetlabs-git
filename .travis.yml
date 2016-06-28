@@ -1,7 +1,14 @@
 ---
 language: ruby
-bundler_args: --without development system_tests
-script: "bundle exec rake validate && bundle exec rake lint && bundle exec rake spec SPEC_OPTS='--format documentation'"
+
+bundler_args: '--without development system_tests'
+
+before_install:
+  - 'gem update --system'
+  - 'gem update bundler'
+
+script: "SPEC_OPTS='--format documentation' bundle exec rake validate lint spec"
+
 matrix:
   fast_finish: true
   include:
@@ -17,5 +24,8 @@ matrix:
     env: PUPPET_GEM_VERSION="~> 3.0" FACTER_GEM_VERSION="~> 1.0"
   - rvm: 2.0.0
     env: PUPPET_GEM_VERSION="~> 3.0" FACTER_GEM_VERSION="~> 2.0"
+  - rvm: 2.3.1
+    env: PUPPET_GEM_VERSION="~> 4" FACTER_GEM_VERSION="~> 2.0"
+
 notifications:
   email: false
