@@ -31,12 +31,12 @@ class git::subtree {
     cwd     => $source_dir,
     path    => ['/usr/bin', '/bin', '/usr/local/bin'],
   }
-  ->
-  package { [ 'asciidoc', 'xmlto', ]:
+
+  -> package { [ 'asciidoc', 'xmlto', ]:
     ensure => present,
   }
-  ->
-  exec { 'Install git-subtree':
+
+  -> exec { 'Install git-subtree':
     command => "make prefix=/usr libexecdir=${::git_exec_path} install",
     onlyif  => [
       "test ! -f ${::git_exec_path}/git-subtree",
