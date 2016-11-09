@@ -1,1 +1,1 @@
-class { 'git': }
+include ::git
