@@ -55,6 +55,9 @@ define git::config (
   $user     = 'root',
   $scope    = 'global',
 ) {
+
+  include ::git
+
   # Backwards compatibility with deprecated $section parameter.
   # (Old versions took separate $section and $key, e.g. "user" and "email".)
   if $section != undef {
