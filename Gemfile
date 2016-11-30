@@ -13,9 +13,11 @@ end
 is_ruby18 = RUBY_VERSION.start_with? '1.8'
 
 group :development, :test do
-  gem 'rake',                    :require => false
   if is_ruby18
     gem 'rspec', "~> 3.1.0",     :require => false
+    gem 'rake',  "<= 10.5.0",    :require => false
+  else
+    gem 'rake',                  :require => false
   end
   gem 'rspec-puppet',            :require => false
   gem 'puppetlabs_spec_helper',  :require => false
@@ -23,6 +25,7 @@ group :development, :test do
   gem 'pry',                     :require => false
   gem 'simplecov',               :require => false
   gem 'metadata-json-lint',      :require => false
+  gem 'json_pure', '<= 2.0.1' if RUBY_VERSION < '2.0.0'
 end
 
 beaker_version = ENV['BEAKER_VERSION']
