@@ -1,3 +1,17 @@
+## Release 0.5.0
+### Summary
+A few new features in this release, including work around supporting default git config and accepting flat git config values. Also a couple of bugfixes and a small readme update.
+
+#### Features
+- Now accepts flat git config values
+- Supports defaults for git config
+- Added check for git package presence to define config::git
+
+#### Bugfixes
+- Adds missing ownership in git::subtree
+- Now escapes git config values for shell execution
+- Improved table of contents in readme
+
 ##2015-05-26 - Release 0.4.0
 ###Summary
 This release adds greater flexibility to `git` and `git_config` and includes a couple of bug fixes, including fixing `git_config` with multiple users.
