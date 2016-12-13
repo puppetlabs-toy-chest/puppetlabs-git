@@ -28,7 +28,9 @@ Puppet::Type.newtype(:git_config) do
   DOC
 
   validate do
-    fail('it is required to pass "value"') if self[:value].nil? || self[:value].empty? || self[:value] == :absent
+    if self[:value].nil? || (self[:value].respond_to?(:empty?) && self[:value].empty?) || self[:value] == :absent
+      fail('it is required to pass "value"')
+    end
     warning('Parameter `section` is deprecated, supply the full option name (e.g. "user.email") in the `key` parameter') if
       self[:section] && !self[:section].empty?
   end

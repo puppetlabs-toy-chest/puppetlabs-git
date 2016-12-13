@@ -34,4 +34,24 @@ describe 'git::config', :type => :define do
       have_git_config_resource_count(1)
     end
   end
+  context 'allow boolean values' do
+    let(:title) { 'core.preloadindex' }
+    let(:params) {
+      {
+        :value => true,
+        :scope => 'system',
+      }
+    }
+    it {
+      is_expected.to compile
+    }
+    it {
+      is_expected.to contain_git_config(title).with(
+        {
+          'value' => params[:value],
+          'scope' => params[:scope],
+        }
+      )
+    }
+  end
 end

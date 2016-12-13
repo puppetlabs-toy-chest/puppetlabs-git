@@ -18,6 +18,20 @@ describe Puppet::Type.type(:git_config) do
     @class.key_attributes.should == [:name]
   end
 
+  describe "should fail when value is empty string" do
+    let(:params) {
+      {
+        name: 'core.preloadindex',
+        value: ''
+      }
+    }
+    it {
+      expect{
+        Puppet::Type.type(:git_config).new(params)
+      }.to raise_error(Puppet::ResourceError, /it is required to pass "value"/)
+    }
+  end
+
   describe "when validating attributes" do
 
     params = [
