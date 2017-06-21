@@ -1,16 +1,16 @@
-require "spec_helper"
+require 'spec_helper'
 
 describe Facter::Util::Fact do
-  before {
+  before do
     Facter.clear
-  }
+  end
 
-  describe "git_version" do
+  describe 'git_version' do
     context 'vanilla git' do
       it do
         git_version_output = 'git version 2.1.2'
-        Facter::Util::Resolution.expects(:exec).with("git --version 2>&1").returns(git_version_output)
-        Facter.value(:git_version).should == "2.1.2"
+        Facter::Util::Resolution.expects(:exec).with('git --version 2>&1').returns(git_version_output)
+        Facter.value(:git_version).should == '2.1.2'
       end
     end
 
@@ -20,14 +20,14 @@ describe Facter::Util::Fact do
 git version 2.1.2
 hub version 1.12.2
         EOS
-        Facter::Util::Resolution.expects(:exec).with("git --version 2>&1").returns(git_version_output)
-        Facter.value(:git_version).should == "2.1.2"
+        Facter::Util::Resolution.expects(:exec).with('git --version 2>&1').returns(git_version_output)
+        Facter.value(:git_version).should == '2.1.2'
       end
     end
 
     context 'no git present' do
       it do
-        Facter::Util::Resolution.expects(:which).with("git").returns(false)
+        Facter::Util::Resolution.expects(:which).with('git').returns(false)
         Facter.value(:git_version).should be_nil
       end
     end
