@@ -1,6 +1,6 @@
-#git
+# git
 
-####Table of Contents
+#### Table of Contents
 
 1. [Overview - What is the git module?](#overview)
 2. [Module Description - What does the module do?](#module-description)
@@ -10,32 +10,32 @@
 6. [Limitations - OS compatibility, etc.](#limitations)
 7. [Development - Guide for contributing to the module](#development)
 
-##Overview
+## Overview
 
 Simple module that can install git or gitosis
 
-##Module Description
+## Module Description
 
 This module installs the git revision control system on a target node. It does not manage a git server or any associated services; it simply ensures a bare minimum set of features (e.g. just a package) to use git.
 
-##Setup
+## Setup
 
-###What git affects
+### What git affects
 
 * Package['git']
 
 The specifics managed by the module may vary depending on the platform.
 
-##Usage
+## Usage
 
-###I just want `git` installed
+### I just want `git` installed
 Simply include the `git` class.
 
 ```puppet
 include git
 ```
 
-###I want to configure `git` using hiera
+### I want to configure `git` using hiera
 
 ```yaml
 git::configs:
@@ -55,13 +55,13 @@ git::configs_defaults:
   scope: system
 ```
 
-###I want to use `git subtree` with bash completion
+### I want to use `git subtree` with bash completion
 
 ```puppet
 include git::subtree
 ```
 
-###I want to set my user.name and user.email
+### I want to set my user.name and user.email
 
 ```puppet
 git::config { 'user.name':
@@ -73,24 +73,24 @@ git::config { 'user.email':
 }
 ```
 
-##Reference
+## Reference
 
-###Classes
+### Classes
 
 * `git`: Installs the git client package.
 * `gitosis`: Installs the gitosis package. No configuration
 * `subtree`: Installs and configures git-subtree for git 1.7 and up.
 
-###Resources
+### Resources
 
 * `git::config`: Set git global configuration for the user running puppet, for the specified `$user` or for the system.
 
-###Facts
+### Facts
 
 * `git_exec_path`: Path to the directory containing all `git-*` commands.
 * `git_version`: Version of git that is installed. Undefined if not installed.
 
-##Limitations
+## Limitations
 
 This module is known to work with the following operating system families:
 
@@ -98,7 +98,7 @@ This module is known to work with the following operating system families:
  - Debian 6.0.7 or newer
  - Ubuntu 12.04 or newer
 
-##Development
+## Development
 
 Puppet Labs modules on the Puppet Forge are open projects, and community contributions are essential for keeping them great. We can’t access the huge number of platforms and myriad of hardware, software, and deployment configurations that Puppet is intended to serve.
 
