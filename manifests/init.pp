@@ -27,12 +27,12 @@
 #   to use for every *configs* item
 #
 class git (
-  $package_name   = 'git',
-  $package_ensure = 'installed',
-  $package_manage = true,
+  $package_name   = $git::params::package_name,
+  $package_ensure = $git::params::package_ensure,
+  $package_manage = $git::params::package_manage,
   $configs = {},
   $configs_defaults = {}
-) {
+) inherits git::params {
   if ( $package_manage ) {
     package { $package_name:
       ensure => $package_ensure,
